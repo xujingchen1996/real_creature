@@ -20,6 +20,23 @@ class lonear():
     def get_name(self):
         return self.character['name']
 
+    # 排泄函数，生成一个排泄物文件，文件名为随机的Base64编码
+    def excrete(self):
+        import base64
+        import random
+        import string
+        import os
+
+        # 生成随机文件名
+        def random_filename():
+            return ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+
+        # 生成随机文件名
+        filename = random_filename()
+        with open(filename, 'w') as f:
+            f.write(base64.b64encode(os.urandom(1024)).decode('utf-8'))
+        return filename
+
 
 def main():
     Lonear = lonear()
@@ -30,6 +47,7 @@ def main():
         query = input('你好: ')
         if query == 'What is your name?':
             print(Lonear.__name__())
+            Lonear.excrete()
             break
 
 if __name__ == '__main__':
